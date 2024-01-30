@@ -1,3 +1,31 @@
+/***********************************************************
+ * Objetivo: Arquivo para realizar as requisições de filmes*
+ * Data: 30/01/24                                          *
+ * Autor: Vitoria Azevedo da Cruz                          *
+ * Versão: 1.0                                             *
+ ***********************************************************/
+
+/*******************************************************************
+ * O node por padrão, não faz conexão com o Banco de Dados,        *
+ * portanto, precisamos de algumas dependênias para isso.          *
+ *                                                                 *
+ * Para realizar a conexão com o Banco de Dados precisamos utilizar*
+ * algumas dependências:                                           *
+ *      -SEQUELIZE ORM                                             *
+ *      -PRISMA ORM                                                *
+ *      -FASTIFY ORM                                               *
+ *                                                                 *
+ * PRISMA - Para utilizar o prisma precisamos instalar as seguintes*
+ * dependências:                                                   *
+ *  -npm install prisma --save                                     *
+ *  -npm install @prisma/client --save                             *
+ *                                                                 *
+ * Após a instalação do PRISMA, devemos rodar o comando abaixo para*
+ * inicializar o PRISMA                                            *
+ *  -npx prisma init                                               *
+ *******************************************************************/
+
+
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')

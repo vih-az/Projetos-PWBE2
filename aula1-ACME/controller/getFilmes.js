@@ -18,7 +18,7 @@ const getFilmesPeloId = function(id_filme){
 
 // getFilmes()
 
-getFilmesPeloId('1')
+// getFilmesPeloId('1')
 
 module.exports={
     getFilmes,
