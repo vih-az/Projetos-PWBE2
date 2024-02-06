@@ -43,6 +43,11 @@ app.use((request, response, next) => {
     next()
 })
 
+
+/***************** Imports de arquivos e bibliotecas do Projeto ***************** */
+const controllerFilmes = require('./controller/controller_filme.js')
+
+/**********************************************************************************/
 app.get('/v1/acme/filmes', cors(), async function (request, response, next) {
     let listaDeFilmes = filmesFuncoes.getFilmes()
 
@@ -53,6 +58,23 @@ app.get('/v1/acme/filmes', cors(), async function (request, response, next) {
         response.json({ erro: "Filme não encontrado" })
         response.status(404)
     }
+})
+
+app.get('/v2/acmefilmes/filmes', cors(), async function(request, response, next){
+
+    //Chama a função para retornar os dados do filme
+    let dadosFilmes = await controllerFilmes.getListarFilmes()
+
+    //Validação para verificar se existem dados
+    if(dadosFilmes){
+        response.json(dadosFilmes)
+        response.status(200)
+    }else{
+        response.json({message: 'Nenhum registro encontrado'})
+        response.status(404)
+    }
+
+
 })
 
 app.get('/v1/acme/filmes/:id', cors(), async function (request, response, next) {
