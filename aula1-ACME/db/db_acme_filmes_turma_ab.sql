@@ -44,6 +44,8 @@ insert into tbl_filme (nome,
                        
 select * from tbl_filme;
 
+select * from tbl_filme where nome like '%elementos%';
+
 show tables;
 
 drop table tbl_teste;

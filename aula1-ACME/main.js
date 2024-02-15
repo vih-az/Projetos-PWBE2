@@ -60,17 +60,17 @@ app.get('/v1/acme/filmes', cors(), async function (request, response, next) {
     }
 })
 
-app.get('/v2/acmefilmes/filmes', cors(), async function(request, response, next){
+app.get('/v2/acmefilmes/filmes', cors(), async function (request, response, next) {
 
     //Chama a função para retornar os dados do filme
     let dadosFilmes = await controllerFilmes.getListarFilmes()
 
     //Validação para verificar se existem dados
-    if(dadosFilmes){
+    if (dadosFilmes) {
         response.json(dadosFilmes)
         response.status(200)
-    }else{
-        response.json({message: 'Nenhum registro encontrado'})
+    } else {
+        response.json({ message: 'Nenhum registro encontrado' })
         response.status(404)
     }
 
@@ -84,12 +84,26 @@ app.get('/v1/acme/filmes/:id', cors(), async function (request, response, next) 
     if (filmeEscolhido) {
         response.json(filmeEscolhido)
         response.status(200)
-    }else{
-        response.json({erro: "Filme não encontrado"})
+    } else {
+        response.json({ erro: "Filme não encontrado" })
         response.status(404)
     }
 })
 
-app.listen(8080, function(){
+app.get('/v2/acmefilmes/filmes/filtro', cors(), async function (request, response, next) {
+    let nomeDoFilme = request.query.nomeFilme
+
+    let dadosDosFilmes = await controllerFilmes.getBuscarFilmePeloNome(nomeDoFilme)
+
+    if(dadosDosFilmes){
+        response.json(dadosDosFilmes)
+        response.status(200)
+    }else{
+        response.json({erro: "Não foi possível encontrar um item"})
+        response.status(404)
+    }
+})
+
+app.listen(8080, function () {
     console.log('API funcionando e aguardando requisições')
 })

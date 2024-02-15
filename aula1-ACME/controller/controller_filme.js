@@ -55,10 +55,29 @@ const getBuscarFilme = async function(id){
 
 }
 
+const getBuscarFilmePeloNome = async function(nomeFilme){
+    let filmeNome = nomeFilme
+
+    let filmesJson = {}
+
+    let dadosDosFilmes = await filmesDAO.selectByNameFilme(filmeNome)
+
+    if(dadosDosFilmes){
+        filmesJson.filmes = dadosDosFilmes
+        filmesJson.quantiade = dadosDosFilmes.length
+        filmesJson.status_code = 200
+
+        return filmesJson
+    }else{
+        return false
+    }
+}
+
 module.exports={
     setInserirNovoFilme,
     setAtualizarFilme,
     setExcluirFilme,
     getListarFilmes,
-    getBuscarFilme
+    getBuscarFilme,
+    getBuscarFilmePeloNome
 }
