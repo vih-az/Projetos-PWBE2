@@ -60,23 +60,6 @@ app.get('/v1/acme/filmes', cors(), async function (request, response, next) {
     }
 })
 
-app.get('/v2/acmefilmes/filmes', cors(), async function (request, response, next) {
-
-    //Chama a função para retornar os dados do filme
-    let dadosFilmes = await controllerFilmes.getListarFilmes()
-
-    //Validação para verificar se existem dados
-    if (dadosFilmes) {
-        response.json(dadosFilmes)
-        response.status(200)
-    } else {
-        response.json({ message: 'Nenhum registro encontrado' })
-        response.status(404)
-    }
-
-
-})
-
 app.get('/v1/acme/filmes/:id', cors(), async function (request, response, next) {
     let idDoFilme = request.params.id
     let filmeEscolhido = filmesFuncoes.getFilmesPeloId(idDoFilme)
@@ -90,18 +73,36 @@ app.get('/v1/acme/filmes/:id', cors(), async function (request, response, next) 
     }
 })
 
+//EndPoint - v2: Retorna os dados de todos os filmes
+app.get('/v2/acmefilmes/filmes', cors(), async function (request, response, next) {
+
+    //Chama a função para retornar os dados do filme
+    let dadosFilmes = await controllerFilmes.getListarFilmes()
+
+    response.status(dadosFilmes.status_code)
+    response.json(dadosFilmes)
+})
+
+//EndPoint - v2: Retorna os dados do Filme filtrando pelo NOME
 app.get('/v2/acmefilmes/filmes/filtro', cors(), async function (request, response, next) {
     let nomeDoFilme = request.query.nomeFilme
 
     let dadosDosFilmes = await controllerFilmes.getBuscarFilmePeloNome(nomeDoFilme)
 
-    if(dadosDosFilmes){
-        response.json(dadosDosFilmes)
-        response.status(200)
-    }else{
-        response.json({erro: "Não foi possível encontrar um item"})
-        response.status(404)
-    }
+    response.status(dadosDosFilmes.status_code)
+    response.json(dadosDosFilmes)
+})
+
+//EndPoint - v2: Retorna os dados do Filme filtrando pelo ID
+app.get('/v2/acmefilmes/filme/:id', cors(), async function (request, response, next) {
+    //Recebe o id da requisição do Filme
+    let idFilme = request.params.id
+
+    //Solicita para a controller o Filme filtrando pelo ID
+    let dadosFilme = await controllerFilmes.getBuscarFilme(idFilme)
+
+    response.status(dadosFilme.status_code)
+    response.json(dadosFilme)
 })
 
 app.listen(8080, function () {
