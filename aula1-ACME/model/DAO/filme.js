@@ -12,8 +12,61 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //Inserir um novo filme
-const insertFilme = async function () {
+const insertFilme = async function (dadosFilme) {
+    try {
+        let sql
+        if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == '' || dadosFilme.data_relancamento == undefined){
+          //ScriptSQL para inserir no BD
+        sql = `insert into tbl_filme (
+            nome,
+            sinopse,
+            data_lancamento,
+            data_relancamento,
+            duracao,
+            foto_capa,
+            valor_unitario
+        ) values (
+            '${dadosFilme.nome}',
+            '${dadosFilme.sinopse}',
+            '${dadosFilme.data_lancamento}',
+            null,
+            '${dadosFilme.duracao}',
+            '${dadosFilme.foto_capa}',
+            '${dadosFilme.valor_unitario}'
+        )`  
+        }else{
+         //ScriptSQL para inserir no BD
+        sql = `insert into tbl_filme (
+            nome,
+            sinopse,
+            data_lancamento,
+            data_relancamento,
+            duracao,
+            foto_capa,
+            valor_unitario
+        ) values (
+            '${dadosFilme.nome}',
+            '${dadosFilme.sinopse}',
+            '${dadosFilme.data_lancamento}',
+            '${dadosFilme.data_relancamento}',
+            '${dadosFilme.duracao}',
+            '${dadosFilme.foto_capa}',
+            '${dadosFilme.valor_unitario}'
+        )`
+        }   
+        //Executa o scriptSQL no BD (devemos usar o comando EXECUTE e não o QUERY)
+        //O comando EXECUTE deve ser utilizado para (insert, update e delete)
+        let result = await prisma.$executeRawUnsafe(sql)
 
+        //Validação para verificar se o INSERT funcionou no BD
+        if(result){
+            return true
+        }else{
+            return false
+        }
+    }catch(error){
+        return false
+    }
 }
 
 //Atualizar um filme existente filtrando pelo ID
@@ -69,7 +122,7 @@ const selectByNameFilme = async function (nomeFilme) {
         let rsFilmeNome = await prisma.$queryRawUnsafe(sqlFilme)
 
         return rsFilmeNome
-    }catch(error){
+    } catch (error) {
         return false
     }
 }

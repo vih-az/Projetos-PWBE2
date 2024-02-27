@@ -43,7 +43,8 @@ app.use((request, response, next) => {
     next()
 })
 
-
+//Cria um objeto do tipo JSON para receber os dados via Body nas requisições POST ou PUT
+const bodyParserJSON = bodyParser.json()
 /***************** Imports de arquivos e bibliotecas do Projeto ***************** */
 const controllerFilmes = require('./controller/controller_filme.js')
 
@@ -103,6 +104,18 @@ app.get('/v2/acmefilmes/filme/:id', cors(), async function (request, response, n
 
     response.status(dadosFilme.status_code)
     response.json(dadosFilme)
+})
+
+//EndPoint: Inserir novos filmes no Banco de Dados
+    //Não esquecer de colocar o bodyParserJSON que é quem define o formato de chegada dos dados
+    //Obs: esse objeto foi criado no inicio do projeto
+app.post('/v2/acmefilmes/filme', cors(), bodyParserJSON, async function(request, response, next){
+    //Recebe os dados encaminhados na requisição no body(JSON)
+    let dadosBody = request.body
+    //Encaminha os dados da requisição para a controller enviar para o BD
+    let resultDados = await controllerFilmes.setInserirNovoFilme(dadosBody)
+    response.status(resultDados.status_code)
+    response.json(resultDados)
 })
 
 app.listen(8080, function () {

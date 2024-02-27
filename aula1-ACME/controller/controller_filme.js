@@ -14,8 +14,32 @@ const message = require("../modulo/config.js")
 const filmesDAO = require('../model/DAO/filme.js')
 
 //Função para inserir um novo filme no Banco de Dados
-const setInserirNovoFilme = async function () {
-
+const setInserirNovoFilme = async function (dadosFilme) {
+    //Cria a variável JSON
+    let resultDadosFilme = {}
+    //Validação para verificar campos obrigatórios e consistência de dados
+    if(dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome.length > 80 ||
+    dadosFilme.sinopse == '' || dadosFilme.sinopse == undefined || dadosFilme.sinopse.length > 65000 ||
+    dadosFilme.duracao == '' || dadosFilme.duracao == undefined || dadosFilme.duracao.length > 8 ||
+    dadosFilme.data_lancamento == '' || dadosFilme.data_lancamento == undefined || dadosFilme.data_lancamento.length > 10 ||
+    dadosFilme.foto_capa == '' || dadosFilme.foto_capa == undefined || dadosFilme.foto_capa.length > 200 ||
+    dadosFilme.valor_unitario.length > 8){
+        return message.ERROR_REQUIRED_FIELDS //400 Campos obrigatórios / incorretos
+    }else{
+        //encaminha os dados para o DAO inserir no BD
+        let novoFilme = await filmesDAO.insertFilme(dadosFilme)
+        //Validação para verificar se os dados foram inseridos pelo DAO no BD
+        if(novoFilme){
+            //Cria o padrão JSON para reorno dos dados criados no BD
+            resultDadosFilme.status = message.SUCCESS_CREATED_ITEM.status
+            resultDadosFilme.status_code = message.SUCCESS_CREATED_ITEM.status_code
+            resultDadosFilme.message = message.SUCCESS_CREATED_ITEM.message
+            resultDadosFilme.filme = dadosFilme
+            return resultDadosFilme//201
+        }else{
+            return message.ERROR_INTERNAL_SERVER_DB //500 Erro na camada do DAO
+        }
+    }
 }
 
 //Função para atualizar um filme existente
