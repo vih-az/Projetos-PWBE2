@@ -93,6 +93,7 @@ const selectAllFilmes = async function () {
 
         return rsFilmes
     } catch (error) {
+        console.log(error)
         return false
     }
 }
