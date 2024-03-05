@@ -43,6 +43,7 @@ insert into tbl_filme (nome,
                        "50.00");
                        
 select * from tbl_filme;
+select * from tbl_filme where id=1;
 
 select * from tbl_filme where nome like '%elementos%';
 

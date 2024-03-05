@@ -16,43 +16,43 @@ const insertFilme = async function (dadosFilme) {
     try {
         let sql
         if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == '' || dadosFilme.data_relancamento == undefined){
-          //ScriptSQL para inserir no BD
-        sql = `insert into tbl_filme (
-            nome,
-            sinopse,
-            data_lancamento,
-            data_relancamento,
-            duracao,
-            foto_capa,
-            valor_unitario
-        ) values (
-            '${dadosFilme.nome}',
-            '${dadosFilme.sinopse}',
-            '${dadosFilme.data_lancamento}',
-            null,
-            '${dadosFilme.duracao}',
-            '${dadosFilme.foto_capa}',
-            '${dadosFilme.valor_unitario}'
-        )`  
+            //ScriptSQL para inserir no BD
+            sql = `insert into tbl_filme (
+                nome,
+                sinopse,
+                data_lancamento,
+                data_relancamento,
+                duracao,
+                foto_capa,
+                valor_unitario
+            ) values (
+                '${dadosFilme.nome}',
+                '${dadosFilme.sinopse}',
+                '${dadosFilme.data_lancamento}',
+                null,
+                '${dadosFilme.duracao}',
+                '${dadosFilme.foto_capa}',
+                '${dadosFilme.valor_unitario}'
+            )`  
         }else{
-         //ScriptSQL para inserir no BD
-        sql = `insert into tbl_filme (
-            nome,
-            sinopse,
-            data_lancamento,
-            data_relancamento,
-            duracao,
-            foto_capa,
-            valor_unitario
-        ) values (
-            '${dadosFilme.nome}',
-            '${dadosFilme.sinopse}',
-            '${dadosFilme.data_lancamento}',
-            '${dadosFilme.data_relancamento}',
-            '${dadosFilme.duracao}',
-            '${dadosFilme.foto_capa}',
-            '${dadosFilme.valor_unitario}'
-        )`
+            //ScriptSQL para inserir no BD
+            sql = `insert into tbl_filme (
+                nome,
+                sinopse,
+                data_lancamento,
+                data_relancamento,
+                duracao,
+                foto_capa,
+                valor_unitario
+            ) values (
+                '${dadosFilme.nome}',
+                '${dadosFilme.sinopse}',
+                '${dadosFilme.data_lancamento}',
+                '${dadosFilme.data_relancamento}',
+                '${dadosFilme.duracao}',
+                '${dadosFilme.foto_capa}',
+                '${dadosFilme.valor_unitario}'
+            )`
         }   
         //Executa o scriptSQL no BD (devemos usar o comando EXECUTE e não o QUERY)
         //O comando EXECUTE deve ser utilizado para (insert, update e delete)
@@ -60,6 +60,7 @@ const insertFilme = async function (dadosFilme) {
 
         //Validação para verificar se o INSERT funcionou no BD
         if(result){
+            selectIdLastInsertID()
             return true
         }else{
             return false
@@ -83,7 +84,7 @@ const deleteFilme = async function (id) {
 const selectAllFilmes = async function () {
     try {
         //Script SQL para listar todos os registros
-        let sql = 'select * from tbl_filme'
+        let sql = 'select * from tbl_filme order by id desc'
 
         //$queryRawUnsafe() --- encaminha apenas a variável
         //$queryRaw('select * from tbl_filme) --- encaminha o script
@@ -127,11 +128,22 @@ const selectByNameFilme = async function (nomeFilme) {
     }
 }
 
+const selectIdLastInsertID = async function () {
+    try{
+        let sql = 'select CAST(last_insert_id() AS DECIMAL) as id from tbl_filme limit 1'
+        let rsID = await prisma.$queryRawUnsafe(sql)
+        return rsID
+    }catch(error){
+        return false
+    }
+}
+
 module.exports = {
     insertFilme,
     updateFilme,
     deleteFilme,
     selectAllFilmes,
     selectByIdFilme,
-    selectByNameFilme
+    selectByNameFilme,
+    selectIdLastInsertID
 }
