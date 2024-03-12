@@ -44,9 +44,12 @@ insert into tbl_filme (nome,
                        
 select * from tbl_filme;
 select * from tbl_filme where id=1;
-
 select * from tbl_filme where nome like '%elementos%';
+select id from tbl_filme order by id desc limit 1;
+select LAST_INSERT_ID() from tbl_filme limit 1;
 
 show tables;
 
 drop table tbl_teste;
+
+desc tbl_filme;

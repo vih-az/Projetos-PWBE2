@@ -110,10 +110,11 @@ app.get('/v2/acmefilmes/filme/:id', cors(), async function (request, response, n
     //Não esquecer de colocar o bodyParserJSON que é quem define o formato de chegada dos dados
     //Obs: esse objeto foi criado no inicio do projeto
 app.post('/v2/acmefilmes/filme', cors(), bodyParserJSON, async function(request, response, next){
+    let contentType = request.headers['content-type']    
     //Recebe os dados encaminhados na requisição no body(JSON)
     let dadosBody = request.body
     //Encaminha os dados da requisição para a controller enviar para o BD
-    let resultDados = await controllerFilmes.setInserirNovoFilme(dadosBody)
+    let resultDados = await controllerFilmes.setInserirNovoFilme(dadosBody, contentType)
     response.status(resultDados.status_code)
     response.json(resultDados)
 })
