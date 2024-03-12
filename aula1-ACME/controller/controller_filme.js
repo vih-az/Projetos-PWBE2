@@ -76,7 +76,12 @@ const setAtualizarFilme = async function () {
 
 //Função para excluir um filme existente
 const setExcluirFilme = async function (id) {
-
+    try{
+        let filmeId = id
+        if(filmeId = '' || filmeId == undefined || isNaN(filmeId)){}
+    }catch(error){
+        
+    }
 }
 
 //Função para retornar todos os filmes do Banco de Dados - *
