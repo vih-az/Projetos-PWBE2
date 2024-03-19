@@ -15,6 +15,7 @@ const ERROR_CONTENT_TYPE = {status: false, status_code: 415, message: 'O Content
 const ERROR_INTERNAL_SERVER = {status: false, status_code: 500, message: 'Ocorreram erros internos no servidor na camada de negócio da API, por favor contate o administrador do sistema !!'}
 /*********************MENSAGENS DE SUCESSO********************/
 const SUCCESS_CREATED_ITEM = {status: true, status_code: 201, message: 'Item criado com sucesso no Banco de Dados !!'}
+const SUCCESS_DELETED_ITEM = {status: true, status_code: 200, message: 'Item deletado com sucesso no Banco de Dados !!'}
 module.exports={
     ERROR_INVALID_ID,
     ERROR_NOT_FOUND,
@@ -22,5 +23,6 @@ module.exports={
     ERROR_REQUIRED_FIELDS,
     SUCCESS_CREATED_ITEM,
     ERROR_CONTENT_TYPE,
-    ERROR_INTERNAL_SERVER
+    ERROR_INTERNAL_SERVER,
+    SUCCESS_DELETED_ITEM
 }
