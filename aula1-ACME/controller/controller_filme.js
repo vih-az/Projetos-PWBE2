@@ -78,6 +78,7 @@ const setAtualizarFilme = async function () {
 const setExcluirFilme = async function (id) {
     try{
         let filmeId = id
+<<<<<<< HEAD
         if(filmeId == '' || filmeId == undefined || isNaN(filmeId)){
             return message.ERROR_INVALID_ID
         }else{
@@ -95,6 +96,11 @@ const setExcluirFilme = async function (id) {
         }
     }catch(error){
         return message.ERROR_INTERNAL_SERVER
+=======
+        if(filmeId = '' || filmeId == undefined || isNaN(filmeId)){}
+    }catch(error){
+        
+>>>>>>> 898fa18a1dde225b9ed11478b492b9b3923cdf13
     }
 }
 

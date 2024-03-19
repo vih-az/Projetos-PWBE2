@@ -167,8 +167,8 @@ const selectByNameFilme = async function (nomeFilme) {
 
 const selectIdLastInsertID = async function () {
     try{
-        let sql = 'select CAST(last_insert_id() AS DECIMAL) as id from tbl_filme limit 1'
-        // let sql = 'select id from tbl_filme order by id desc limit 1'
+        // let sql = 'select CAST(last_insert_id() AS DECIMAL) as id from tbl_filme limit 1'
+        let sql = 'select id from tbl_filme order by id desc limit 1'
         let rsID = await prisma.$queryRawUnsafe(sql)
         return rsID
     }catch(error){
