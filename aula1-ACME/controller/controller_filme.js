@@ -127,7 +127,8 @@ const setAtualizarFilme = async function (idFilme, dadosFilme, contentType) {
 const setExcluirFilme = async function (id) {
     try {
         let filmeId = id
-        if (filmeId == '' || filmeId == undefined || isNaN(filmeId)) {
+<<<<<<< HEAD
+        if(filmeId == '' || filmeId == undefined || isNaN(filmeId)){
             return message.ERROR_INVALID_ID
         } else {
             let validarId = await filmesDAO.selectByIdFilme(filmeId)
