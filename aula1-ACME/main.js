@@ -124,6 +124,7 @@ app.delete('/v2/acmefilmes/filme/:id', cors(), async function(request, response,
     response.status(filmeDeletar.status_code)
     response.json(filmeDeletar)
 })
+app.put('/v2/acmefilmes/filmes/:id', cors(), bodyParserJSON, async function(request, response, next
 
 app.listen(8080, function () {
     console.log('API funcionando e aguardando requisições')
