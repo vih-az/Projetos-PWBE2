@@ -88,6 +88,7 @@ const setAtualizarFilme = async function (idFilme, dadosFilme, contentType) {
                         dadosFilme.data_lancamento == '' || dadosFilme.data_lancamento == undefined || dadosFilme.data_lancamento.length > 10 ||
                         dadosFilme.foto_capa == '' || dadosFilme.foto_capa == undefined || dadosFilme.foto_capa.length > 200 ||
                         dadosFilme.valor_unitario.length > 8) {
+                            console.log('teste')
                         return message.ERROR_REQUIRED_FIELDS
                     } else {
                         let dadosValidar = false
@@ -127,7 +128,6 @@ const setAtualizarFilme = async function (idFilme, dadosFilme, contentType) {
 const setExcluirFilme = async function (id) {
     try {
         let filmeId = id
-<<<<<<< HEAD
         if(filmeId == '' || filmeId == undefined || isNaN(filmeId)){
             return message.ERROR_INVALID_ID
         } else {

@@ -124,7 +124,14 @@ app.delete('/v2/acmefilmes/filme/:id', cors(), async function(request, response,
     response.status(filmeDeletar.status_code)
     response.json(filmeDeletar)
 })
-app.put('/v2/acmefilmes/filmes/:id', cors(), bodyParserJSON, async function(request, response, next
+app.put('/v2/acmefilmes/filmes/:id', cors(), bodyParserJSON, async function(request, response, next){
+    let contentType = request.headers['content-type']
+    let filmeId = request.params.id
+    let dadosBody = request.body
+    let resultadoDadosDosFilmes = await controllerFilmes.setAtualizarFilme(filmeId, dadosBody, contentType)
+    response.status(resultadoDadosDosFilmes.status_code)
+    response.json(resultadoDadosDosFilmes)
+})
 
 app.listen(8080, function () {
     console.log('API funcionando e aguardando requisições')

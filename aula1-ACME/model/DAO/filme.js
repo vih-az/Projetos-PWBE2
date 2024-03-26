@@ -71,7 +71,7 @@ const insertFilme = async function (dadosFilme) {
 }
 
 //Atualizar um filme existente filtrando pelo ID
-const updateFilme = async function (dadosFilme, id) {
+const updateFilme = async function (filmeId, dadosFilme){
     try{
         let sql
         if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == '' || dadosFilme.data_relancamento == undefined){
@@ -84,7 +84,7 @@ const updateFilme = async function (dadosFilme, id) {
                 duracao = '${dadosFilme.duracao}',
                 foto_capa ='${dadosFilme.foto_capa}',
                 valor_unitario = '${dadosFilme.valor_unitario}'
-                where id=${id}`  
+                where id=${filmeId}`  
         }else{
             //ScriptSQL para inserir no BD
             sql = `update tbl_filme
@@ -95,7 +95,7 @@ const updateFilme = async function (dadosFilme, id) {
                 duracao = '${dadosFilme.duracao}',
                 foto_capa = '${dadosFilme.foto_capa}',
                 valor_unitario = '${dadosFilme.valor_unitario}'
-                where id=${id}`
+                where id=${filmeId}`
         }
         let rsFilme = prisma.$executeRawUnsafe(sql)
         return rsFilme
