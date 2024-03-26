@@ -16,6 +16,7 @@ const ERROR_INTERNAL_SERVER = {status: false, status_code: 500, message: 'Ocorre
 /*********************MENSAGENS DE SUCESSO********************/
 const SUCCESS_CREATED_ITEM = {status: true, status_code: 201, message: 'Item criado com sucesso no Banco de Dados !!'}
 const SUCCESS_DELETED_ITEM = {status: true, status_code: 200, message: 'Item deletado com sucesso no Banco de Dados !!'}
+const SUCCESS_UPDATED_ITEM = {status: true, status_code: 200, message: 'Item atualizado com sucesso no Banco de Dados !!'}
 module.exports={
     ERROR_INVALID_ID,
     ERROR_NOT_FOUND,
@@ -24,5 +25,6 @@ module.exports={
     SUCCESS_CREATED_ITEM,
     ERROR_CONTENT_TYPE,
     ERROR_INTERNAL_SERVER,
-    SUCCESS_DELETED_ITEM
+    SUCCESS_DELETED_ITEM,
+    SUCCESS_UPDATED_ITEM
 }
